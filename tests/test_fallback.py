@@ -176,3 +176,38 @@ def test_siliconflow_uses_non_thinking_json(monkeypatch):
     llm = client(monkeypatch, handler)
     llm.settings = Settings(llm_providers=(llm.settings.llm_providers[2],))
     llm.extract("转化率80%")
+
+
+def test_400_retries_with_minimal_body(monkeypatch):
+    bodies = []
+
+    def handler(req):
+        bodies.append(json.loads(req.content))
+        return httpx.Response(400) if len(bodies) == 1 else response()
+
+    llm = client(monkeypatch, handler)
+    llm.settings = Settings(llm_providers=(llm.settings.llm_providers[1],))
+    assert llm.extract("转化率80%") == PAYLOAD
+    assert len(bodies) == 2
+    # 首次请求带扩展字段；400 后重试剥离 thinking / response_format，其余保持不变
+    assert bodies[0]["thinking"] == {"type": "disabled"}
+    assert bodies[0]["response_format"]["type"] == "json_object"
+    assert "thinking" not in bodies[1] and "response_format" not in bodies[1]
+    assert bodies[1]["model"] == bodies[0]["model"]
+    assert bodies[1]["messages"] == bodies[0]["messages"]
+    assert llm.trace[-1]["status"] == "success"
+
+
+def test_400_twice_records_failure_once(monkeypatch):
+    calls = []
+
+    def handler(req):
+        calls.append(req.url.host)
+        return httpx.Response(400)
+
+    llm = client(monkeypatch, handler)
+    llm.settings = Settings(llm_providers=(llm.settings.llm_providers[1],))
+    with pytest.raises(ModelChainError):
+        llm.extract("转化率80%")
+    assert calls == ["deepseek.invalid"] * 2  # 仅重试一次，不额外打到后续 provider
+    assert llm.trace[-1]["reason"] == "HTTP 400"

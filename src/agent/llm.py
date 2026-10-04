@@ -129,42 +129,60 @@ class JsonLLM:
                         else cfg.llm_timeout_seconds,
                         remaining,
                     )
-                    response = await asyncio.wait_for(
-                        client.post(
-                            endpoint.base_url.rstrip("/") + "/chat/completions",
-                            headers={"Authorization": f"Bearer {endpoint.api_key}"},
-                            timeout=httpx.Timeout(timeout, connect=min(5, timeout)),
-                            json={
-                                "model": endpoint.model,
-                                "temperature": 0,
-                                "max_tokens": tokens,
-                                **(
-                                    {"enable_thinking": False}
-                                    if endpoint.name == "siliconflow"
-                                    else {"thinking": {"type": "disabled"}}
-                                    if endpoint.name == "deepseek"
-                                    else {}
-                                ),
-                                "response_format": {
-                                    "type": "text" if endpoint.name == "local" else "json_object"
-                                },
-                                "messages": [
-                                    {
-                                        "role": "system",
-                                        "content": system
-                                        + "\n只输出JSON，不输出Markdown围栏。输出契约："
-                                        + json.dumps(schema),
-                                    },
-                                    {
-                                        "role": "user",
-                                        "content": json.dumps(payload, ensure_ascii=False),
-                                    },
-                                ],
-                            },
+                    body = {
+                        "model": endpoint.model,
+                        "temperature": 0,
+                        "max_tokens": tokens,
+                        **(
+                            {"enable_thinking": False}
+                            if endpoint.name == "siliconflow"
+                            else {"thinking": {"type": "disabled"}}
+                            if endpoint.name == "deepseek"
+                            else {}
                         ),
+                        "response_format": {
+                            "type": "text" if endpoint.name == "local" else "json_object"
+                        },
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": system
+                                + "\n只输出JSON，不输出Markdown围栏。输出契约："
+                                + json.dumps(schema),
+                            },
+                            {
+                                "role": "user",
+                                "content": json.dumps(payload, ensure_ascii=False),
+                            },
+                        ],
+                    }
+                    url = endpoint.base_url.rstrip("/") + "/chat/completions"
+                    headers = {"Authorization": f"Bearer {endpoint.api_key}"}
+                    http_timeout = httpx.Timeout(timeout, connect=min(5, timeout))
+                    response = await asyncio.wait_for(
+                        client.post(url, headers=headers, timeout=http_timeout, json=body),
                         timeout=timeout,
                     )
-                    response.raise_for_status()
+                    try:
+                        response.raise_for_status()
+                    except httpx.HTTPStatusError as exc:
+                        # 部分平台的新模型不再接受 thinking / response_format 等
+                        # 扩展字段（表现为 400）：剥掉扩展字段，用最小请求体重试
+                        # 一次；其他状态码与二次失败照旧上抛，由外层记录与熔断。
+                        if exc.response.status_code != 400:
+                            raise
+                        minimal = {
+                            k: v
+                            for k, v in body.items()
+                            if k not in {"thinking", "enable_thinking", "response_format"}
+                        }
+                        response = await asyncio.wait_for(
+                            client.post(
+                                url, headers=headers, timeout=http_timeout, json=minimal
+                            ),
+                            timeout=timeout,
+                        )
+                        response.raise_for_status()
                     parsed = json.loads(response.json()["choices"][0]["message"]["content"])
                     validator(parsed)
                     succeeded = True
