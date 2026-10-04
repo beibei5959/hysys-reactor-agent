@@ -1,0 +1,41 @@
+{
+  "user_query": "甲苯歧化真实自动参考建模：纯甲苯1000 kg/h，380摄氏度，2500 kPa绝压，转化率50%。从空白案例自动创建组分、物性包、进料、反应和反应器；只生成邻二甲苯，零热负荷。按已验证参考案例保留邻二甲苯系数1.0000527473538292，输入中的1.0为名义系数。尚未完成完整考题异构体分配。",
+  "reaction_info": {
+    "reaction_name": "甲苯歧化",
+    "reactants": [
+      "Toluene"
+    ],
+    "products": [
+      "Benzene",
+      "o-Xylene"
+    ],
+    "temperature": 653.15,
+    "pressure": 2500,
+    "conversion_known": true,
+    "conversion": 0.5,
+    "products_known": true,
+    "reaction_path_known": true
+  },
+  "simulation_inputs": {
+    "components": [
+      "Toluene",
+      "Benzene",
+      "o-Xylene",
+      "m-Xylene",
+      "p-Xylene"
+    ],
+    "property_package": "Peng-Robinson",
+    "feed_composition": {
+      "Toluene": 1
+    },
+    "feed_flow_kmol_h": 10.852955420760267,
+    "reactions": [
+      {
+        "Toluene": -2.0,
+        "Benzene": 1.0,
+        "o-Xylene": 1.0
+      }
+    ],
+    "conversion_basis": "Toluene"
+  }
+}

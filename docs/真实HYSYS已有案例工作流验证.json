@@ -1,0 +1,362 @@
+{
+  "scope": "LangGraph integration with an existing manual reference case; not automatic model creation",
+  "component_order": [
+    "Toluene",
+    "Benzene",
+    "o-Xylene",
+    "m-Xylene",
+    "p-Xylene"
+  ],
+  "property_package": "Peng-Robinson",
+  "before": {
+    "streams": {
+      "FEED": {
+        "temperature_K": 653.15,
+        "pressure_kPa": 2500.0,
+        "mass_flow_kg_h": 999.9999999999999,
+        "molar_flow_kmol_h": 10.852955420760267,
+        "mole_fractions": {
+          "Toluene": 1.0,
+          "Benzene": 0.0,
+          "o-Xylene": 0.0,
+          "m-Xylene": 0.0,
+          "p-Xylene": 0.0
+        },
+        "component_flow_kmol_h": {
+          "Toluene": 10.852955420760267,
+          "Benzene": 0.0,
+          "o-Xylene": 0.0,
+          "m-Xylene": 0.0,
+          "p-Xylene": 0.0
+        }
+      },
+      "LIQUID_PROD": {
+        "temperature_K": 649.3400366698161,
+        "pressure_kPa": 2500.0,
+        "mass_flow_kg_h": 0.0,
+        "molar_flow_kmol_h": 0.0,
+        "mole_fractions": null,
+        "component_flow_kmol_h": {
+          "Toluene": 0.0,
+          "Benzene": 0.0,
+          "o-Xylene": 0.0,
+          "m-Xylene": 0.0,
+          "p-Xylene": 0.0
+        }
+      },
+      "PRODUCT": {
+        "temperature_K": 649.3400366698161,
+        "pressure_kPa": 2500.0,
+        "mass_flow_kg_h": 999.9999999999999,
+        "molar_flow_kmol_h": 10.853098536930183,
+        "mole_fractions": {
+          "Toluene": 0.49999340666771663,
+          "Benzene": 0.24999670333385832,
+          "o-Xylene": 0.25000988999842516,
+          "m-Xylene": 0.0,
+          "p-Xylene": 0.0
+        },
+        "component_flow_kmol_h": {
+          "Toluene": 5.426477710380134,
+          "Benzene": 2.713238855190067,
+          "o-Xylene": 2.713381971359984,
+          "m-Xylene": 0.0,
+          "p-Xylene": 0.0
+        }
+      }
+    },
+    "verification": {
+      "conversion_fraction_from_flows": 0.5,
+      "conversion_percent_from_flows": 50.0,
+      "outlet_component_flow_kmol_h": {
+        "Toluene": 5.426477710380134,
+        "Benzene": 2.713238855190067,
+        "o-Xylene": 2.713381971359984,
+        "m-Xylene": 0.0,
+        "p-Xylene": 0.0
+      },
+      "mass_balance_residual_kg_h": 0.0,
+      "stoichiometry_residuals_kmol_h": {
+        "benzene": 0.0,
+        "ortho_xylene": 0.00014311616991724563,
+        "meta_xylene": 0.0,
+        "para_xylene": 0.0
+      },
+      "tolerances": {
+        "mass_kg_h": 0.01,
+        "conversion_fraction": 0.0001,
+        "stoichiometry_kmol_h": 0.0010852955420760269
+      },
+      "checks": {
+        "target_reactor_valid": true,
+        "feed_mass_1000_kg_h": true,
+        "mass_balance": true,
+        "toluene_conversion_50_percent": true,
+        "reference_stoichiometry": true
+      },
+      "all_checks_passed": true
+    }
+  },
+  "write_attempted": true,
+  "after": {
+    "streams": {
+      "FEED": {
+        "temperature_K": 653.15,
+        "pressure_kPa": 2500.0,
+        "mass_flow_kg_h": 999.9999999999999,
+        "molar_flow_kmol_h": 10.852955420760267,
+        "mole_fractions": {
+          "Toluene": 1.0,
+          "Benzene": 0.0,
+          "o-Xylene": 0.0,
+          "m-Xylene": 0.0,
+          "p-Xylene": 0.0
+        },
+        "component_flow_kmol_h": {
+          "Toluene": 10.852955420760267,
+          "Benzene": 0.0,
+          "o-Xylene": 0.0,
+          "m-Xylene": 0.0,
+          "p-Xylene": 0.0
+        }
+      },
+      "LIQUID_PROD": {
+        "temperature_K": 649.3400366698161,
+        "pressure_kPa": 2500.0,
+        "mass_flow_kg_h": 0.0,
+        "molar_flow_kmol_h": 0.0,
+        "mole_fractions": null,
+        "component_flow_kmol_h": {
+          "Toluene": 0.0,
+          "Benzene": 0.0,
+          "o-Xylene": 0.0,
+          "m-Xylene": 0.0,
+          "p-Xylene": 0.0
+        }
+      },
+      "PRODUCT": {
+        "temperature_K": 649.3400366698161,
+        "pressure_kPa": 2500.0,
+        "mass_flow_kg_h": 999.9999999999999,
+        "molar_flow_kmol_h": 10.853098536930183,
+        "mole_fractions": {
+          "Toluene": 0.49999340666771663,
+          "Benzene": 0.24999670333385832,
+          "o-Xylene": 0.25000988999842516,
+          "m-Xylene": 0.0,
+          "p-Xylene": 0.0
+        },
+        "component_flow_kmol_h": {
+          "Toluene": 5.426477710380134,
+          "Benzene": 2.713238855190067,
+          "o-Xylene": 2.713381971359984,
+          "m-Xylene": 0.0,
+          "p-Xylene": 0.0
+        }
+      }
+    },
+    "verification": {
+      "conversion_fraction_from_flows": 0.5,
+      "conversion_percent_from_flows": 50.0,
+      "outlet_component_flow_kmol_h": {
+        "Toluene": 5.426477710380134,
+        "Benzene": 2.713238855190067,
+        "o-Xylene": 2.713381971359984,
+        "m-Xylene": 0.0,
+        "p-Xylene": 0.0
+      },
+      "mass_balance_residual_kg_h": 0.0,
+      "stoichiometry_residuals_kmol_h": {
+        "benzene": 0.0,
+        "ortho_xylene": 0.00014311616991724563,
+        "meta_xylene": 0.0,
+        "para_xylene": 0.0
+      },
+      "tolerances": {
+        "mass_kg_h": 0.01,
+        "conversion_fraction": 0.0001,
+        "stoichiometry_kmol_h": 0.0010852955420760269
+      },
+      "checks": {
+        "target_reactor_valid": true,
+        "feed_mass_1000_kg_h": true,
+        "mass_balance": true,
+        "toluene_conversion_50_percent": true,
+        "reference_stoichiometry": true
+      },
+      "all_checks_passed": true
+    }
+  },
+  "task": {
+    "id": "0b91e44e1e464ccca2231f5bca5d0d96",
+    "status": "completed",
+    "state": {
+      "cleanup_status": "success",
+      "confidence": 1.0,
+      "error": null,
+      "error_code": null,
+      "explanation_status": "template",
+      "final_answer": "反应器：Conversion Reactor（转化反应器）\n选择依据：明确给定转化率，按指定转化程度选择转化反应器。\n【真实 HYSYS】收敛检查已通过。工程结果请核对 simulation_results 中的原始值和单位。",
+      "llm_trace": [],
+      "missing_parameters": [],
+      "reaction_info": {
+        "conversion": 0.5,
+        "conversion_known": true,
+        "equilibrium_controlled": null,
+        "multiple_reactions": null,
+        "pressure": 2500.0,
+        "products": [
+          "Benzene",
+          "o-Xylene"
+        ],
+        "products_known": true,
+        "reactants": [
+          "Toluene"
+        ],
+        "reaction_name": "甲苯歧化",
+        "reaction_path_known": true,
+        "reversible": null,
+        "temperature": 653.15
+      },
+      "retry_count": 0,
+      "selected_reactor": "Conversion",
+      "selection_reason": "明确给定转化率，按指定转化程度选择转化反应器。",
+      "simulation_inputs": {
+        "components": [
+          "Toluene",
+          "Benzene",
+          "o-Xylene",
+          "m-Xylene",
+          "p-Xylene"
+        ],
+        "conversion_basis": "Toluene",
+        "feed_composition": {
+          "Toluene": 1
+        },
+        "feed_flow_kmol_h": 10.852955420760267,
+        "property_package": "Peng-Robinson",
+        "reactions": [
+          {
+            "Benzene": 1.0,
+            "Toluene": -2.0,
+            "o-Xylene": 1.0
+          }
+        ]
+      },
+      "simulation_results": {
+        "automatic_model_creation": false,
+        "converged": true,
+        "convergence_evidence": {
+          "checks": {
+            "feed_mass_1000_kg_h": true,
+            "mass_balance": true,
+            "reference_stoichiometry": true,
+            "target_reactor_valid": true,
+            "toluene_conversion_50_percent": true
+          },
+          "reactor_valid": true,
+          "stable_samples": 3
+        },
+        "engineering_results": {
+          "streams": {
+            "FEED": {
+              "component_flow_kmol_h": {
+                "Benzene": 0.0,
+                "Toluene": 10.852955420760267,
+                "m-Xylene": 0.0,
+                "o-Xylene": 0.0,
+                "p-Xylene": 0.0
+              },
+              "mass_flow_kg_h": 999.9999999999999,
+              "molar_flow_kmol_h": 10.852955420760267,
+              "mole_fractions": {
+                "Benzene": 0.0,
+                "Toluene": 1.0,
+                "m-Xylene": 0.0,
+                "o-Xylene": 0.0,
+                "p-Xylene": 0.0
+              },
+              "pressure_kPa": 2500.0,
+              "temperature_K": 653.15
+            },
+            "LIQUID_PROD": {
+              "component_flow_kmol_h": {
+                "Benzene": 0.0,
+                "Toluene": 0.0,
+                "m-Xylene": 0.0,
+                "o-Xylene": 0.0,
+                "p-Xylene": 0.0
+              },
+              "mass_flow_kg_h": 0.0,
+              "molar_flow_kmol_h": 0.0,
+              "mole_fractions": null,
+              "pressure_kPa": 2500.0,
+              "temperature_K": 649.3400366698161
+            },
+            "PRODUCT": {
+              "component_flow_kmol_h": {
+                "Benzene": 2.713238855190067,
+                "Toluene": 5.426477710380134,
+                "m-Xylene": 0.0,
+                "o-Xylene": 2.713381971359984,
+                "p-Xylene": 0.0
+              },
+              "mass_flow_kg_h": 999.9999999999999,
+              "molar_flow_kmol_h": 10.853098536930183,
+              "mole_fractions": {
+                "Benzene": 0.24999670333385832,
+                "Toluene": 0.49999340666771663,
+                "m-Xylene": 0.0,
+                "o-Xylene": 0.25000988999842516,
+                "p-Xylene": 0.0
+              },
+              "pressure_kPa": 2500.0,
+              "temperature_K": 649.3400366698161
+            }
+          },
+          "verification": {
+            "all_checks_passed": true,
+            "checks": {
+              "feed_mass_1000_kg_h": true,
+              "mass_balance": true,
+              "reference_stoichiometry": true,
+              "target_reactor_valid": true,
+              "toluene_conversion_50_percent": true
+            },
+            "conversion_fraction_from_flows": 0.5,
+            "conversion_percent_from_flows": 50.0,
+            "mass_balance_residual_kg_h": 0.0,
+            "outlet_component_flow_kmol_h": {
+              "Benzene": 2.713238855190067,
+              "Toluene": 5.426477710380134,
+              "m-Xylene": 0.0,
+              "o-Xylene": 2.713381971359984,
+              "p-Xylene": 0.0
+            },
+            "stoichiometry_residuals_kmol_h": {
+              "benzene": 0.0,
+              "meta_xylene": 0.0,
+              "ortho_xylene": 0.00014311616991724563,
+              "para_xylene": 0.0
+            },
+            "tolerances": {
+              "conversion_fraction": 0.0001,
+              "mass_kg_h": 0.01,
+              "stoichiometry_kmol_h": 0.0010852955420760269
+            }
+          }
+        },
+        "execution_mode": "existing_manual_reference",
+        "limitations": [
+          "Ortho-xylene-only reference; reaction/thermal specifications remain manually configured.",
+          "Only the supplied fixed reference input is supported."
+        ],
+        "reactor": "Conversion",
+        "source": "hysys"
+      },
+      "simulation_status": "success",
+      "user_query": "使用已验证的甲苯歧化手工测试副本：纯甲苯1000 kg/h，进料380摄氏度、2500 kPa绝压，转化率50%，2甲苯生成苯和邻二甲苯。保留手工反应与热工配置，仅写入已指定的摩尔流量并读取真实结果。此受限案例模式不自动创建模型，不代表完成三种二甲苯分配。",
+      "validation_passed": true
+    }
+  }
+}

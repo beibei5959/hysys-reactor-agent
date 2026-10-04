@@ -1,0 +1,16 @@
+{
+  "description": "开发示例，非原始考题；数值与物性包未作工程适用性核验",
+  "user_query": "甲烷蒸汽重整：CH4+H2O可逆生成CO+3H2，具体路径已知，受平衡控制。温度1073.15 K，绝压1000 kPa。",
+  "reaction_info": {
+    "reaction_name": "甲烷蒸汽重整", "reactants": ["CH4", "H2O"], "products": ["CO", "H2"],
+    "temperature": 1073.15, "pressure": 1000.0, "reversible": true,
+    "multiple_reactions": false, "conversion_known": false, "equilibrium_controlled": true,
+    "products_known": true, "reaction_path_known": true
+  },
+  "simulation_inputs": {
+    "components": ["CH4", "H2O", "CO", "H2"], "property_package": "Peng-Robinson",
+    "feed_composition": {"CH4": 0.25, "H2O": 0.75}, "feed_flow_kmol_h": 100.0,
+    "reactions": [{"CH4": -1.0, "H2O": -1.0, "CO": 1.0, "H2": 3.0}],
+    "equilibrium_method": "thermodynamic_equilibrium_constant"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "user_query": "请模拟某水煤浆气化过程：原料为煤和水，采用水煤浆进料，浓度62wt%，气化炉处理量80000Nm3/h，操作压力40bar，进料温度40℃，气化炉出口温度1400℃。考虑副反应，输出产品气体组成与CO收率；不考虑反应器体积，灰分忽略。请选择合适的反应器类型并完成模拟。",
+  "reaction_info": {
+    "reaction_name": "水煤浆气化",
+    "reactants": [
+      "Carbon",
+      "H2O"
+    ],
+    "products": [
+      "CO",
+      "CO2",
+      "Hydrogen"
+    ],
+    "temperature": 1673.15,
+    "pressure": 4000.0,
+    "reversible": null,
+    "multiple_reactions": true,
+    "conversion_known": false,
+    "conversion": null,
+    "equilibrium_controlled": null,
+    "products_known": false,
+    "reaction_path_known": false
+  },
+  "simulation_inputs": {
+    "components": [
+      "Carbon",
+      "H2O",
+      "CO",
+      "CO2",
+      "Hydrogen"
+    ],
+    "property_package": "Peng-Robinson",
+    "feed_composition": {
+      "Carbon": 0.7099065178205965,
+      "H2O": 0.2900934821794034
+    },
+    "feed_flow_kmol_h": 72.71288209695281,
+    "reactions": [],
+    "conversion_basis": null,
+    "equilibrium_method": "Gibbs 自由能最小化（HYSYS Gibbs reactor，固体 Carbon 为候选物种；甲烷从候选中排除以避免非物理局部解，见 run_gasification.py assumptions），由 gasification_mvp/run_gasification.py 在远程 HYSYS V15 连续三轮通过全部校验"
+  },
+  "preset": "gibbs",
+  "preset_note": "Pinned to the verified gasification runner (steam-limited, 40 bar, 40 C feed -> 1400 C outlet, 1000 kg/h slurry basis)."
+}

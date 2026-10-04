@@ -1,0 +1,47 @@
+{
+  "user_query": "请帮我完成甲苯歧化反应的模拟，甲苯原料进入转化率反应器，发生歧化反应：2C7H8 → C6H6 + C8H10。甲苯进料流量10000kg/h，进料温度为380℃，操作压力2.5MPa，甲苯转化率为50%，反应产物为苯和二甲苯（邻、间、对三种异构体），请配置反应并模拟产物分布和流股假设。",
+  "reaction_info": {
+    "reaction_name": "甲苯歧化",
+    "reactants": [
+      "Toluene"
+    ],
+    "products": [
+      "Benzene",
+      "o-Xylene"
+    ],
+    "temperature": 653.15,
+    "pressure": 2500.0,
+    "reversible": false,
+    "multiple_reactions": false,
+    "conversion_known": true,
+    "conversion": 0.5,
+    "equilibrium_controlled": false,
+    "products_known": true,
+    "reaction_path_known": true
+  },
+  "simulation_inputs": {
+    "components": [
+      "Toluene",
+      "Benzene",
+      "o-Xylene",
+      "m-Xylene",
+      "p-Xylene"
+    ],
+    "property_package": "Peng-Robinson",
+    "feed_composition": {
+      "Toluene": 1.0
+    },
+    "feed_flow_kmol_h": 108.52955420760267,
+    "reactions": [
+      {
+        "Toluene": -2.0,
+        "Benzene": 1.0,
+        "o-Xylene": 1.0
+      }
+    ],
+    "conversion_basis": "Toluene",
+    "equilibrium_method": null
+  },
+  "preset": "conversion",
+  "preset_note": "Pinned to the verified toluene reference-join case (toluene_python_test.hsc must be open and active); feed scaled to the exam statement 10000 kg/h; xylenes lumped to ortho (documented)."
+}

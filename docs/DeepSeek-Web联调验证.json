@@ -1,0 +1,61 @@
+{
+  "direct_deepseek": {
+    "parse": "passed",
+    "explanation": "passed",
+    "trace": [
+      {
+        "phase": "parse_reaction",
+        "provider": "deepseek",
+        "model": "deepseek-v4-flash",
+        "status": "success",
+        "duration_ms": 7513
+      },
+      {
+        "phase": "explain_result",
+        "provider": "deepseek",
+        "model": "deepseek-v4-flash",
+        "status": "success",
+        "duration_ms": 4470
+      }
+    ]
+  },
+  "web_task": {
+    "task_id": "5e27708622a2e81a61713b22b848a2b67b695d18660e207aa2ea7e4cbc19d619",
+    "status": "completed",
+    "explanation_status": "success",
+    "reactor": "Conversion",
+    "trace": [
+      {
+        "duration_ms": 60002,
+        "model": "qwen/qwen3.5-9b",
+        "phase": "parse_reaction",
+        "provider": "local",
+        "reason": "请求超时",
+        "status": "failed"
+      },
+      {
+        "duration_ms": 14483,
+        "model": "deepseek-v4-flash",
+        "phase": "parse_reaction",
+        "provider": "deepseek",
+        "status": "success"
+      },
+      {
+        "duration_ms": 60002,
+        "model": "qwen/qwen3.5-9b",
+        "phase": "explain_result",
+        "provider": "local",
+        "reason": "请求超时",
+        "status": "failed"
+      },
+      {
+        "duration_ms": 5972,
+        "model": "deepseek-v4-flash",
+        "phase": "explain_result",
+        "provider": "deepseek",
+        "status": "success"
+      }
+    ],
+    "source": "mock"
+  }
+}

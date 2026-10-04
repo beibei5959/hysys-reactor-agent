@@ -1,0 +1,116 @@
+{
+  "task_id": "48165674b9e14ba085823330a5a4b528",
+  "status": "completed",
+  "attempt": 1,
+  "stage": null,
+  "state": {
+    "cleanup_status": "success",
+    "confidence": 0.9,
+    "error": null,
+    "error_code": null,
+    "explanation_status": "template",
+    "final_answer": "反应器：Gibbs Reactor（吉布斯反应器）\n选择依据：复杂多反应体系，路径或产物分布不明确，采用吉布斯自由能最小化；依据不是高温。\n【真实 HYSYS】收敛检查已通过。工程结果请核对 simulation_results 中的原始值和单位。",
+    "llm_trace": [],
+    "missing_parameters": [],
+    "reaction_info": {
+      "conversion": null,
+      "conversion_known": false,
+      "equilibrium_controlled": null,
+      "multiple_reactions": true,
+      "pressure": 4000.0,
+      "products": [
+        "CO",
+        "CO2",
+        "Hydrogen"
+      ],
+      "products_known": false,
+      "reactants": [
+        "Carbon",
+        "H2O"
+      ],
+      "reaction_name": "水煤浆气化",
+      "reaction_path_known": false,
+      "reversible": null,
+      "temperature": 1673.15
+    },
+    "retry_count": 0,
+    "selected_reactor": "Gibbs",
+    "selection_reason": "复杂多反应体系，路径或产物分布不明确，采用吉布斯自由能最小化；依据不是高温。",
+    "simulation_inputs": {
+      "components": [
+        "Carbon",
+        "H2O",
+        "CO",
+        "CO2",
+        "Hydrogen"
+      ],
+      "conversion_basis": null,
+      "equilibrium_method": "Gibbs 自由能最小化（HYSYS Gibbs reactor，固体 Carbon 为候选物种；甲烷从候选中排除以避免非物理局部解，见 run_gasification.py assumptions），由 gasification_mvp/run_gasification.py 在远程 HYSYS V15 连续三轮通过全部校验",
+      "feed_composition": {
+        "Carbon": 0.7099065178205965,
+        "H2O": 0.2900934821794034
+      },
+      "feed_flow_kmol_h": 72.71288209695281,
+      "property_package": "Peng-Robinson",
+      "reactions": []
+    },
+    "simulation_results": {
+      "assumptions": [
+        "Coal modelled as pure solid carbon; slurry 62 wt% C + 38 wt% water; 1000 kg/h slurry = 51.6193 kmol/h C + 21.0935 kmol/h H2O",
+        "40 bar interpreted as absolute (4000 kPa); zero pressure drop; feed 40 C; outlet 1400 C specified on vapour product",
+        "Candidate species C(s)/H2O/CO/CO2/H2; Gibbs free-energy minimisation covers main C+H2O=CO+H2 plus WGS and Boudouard as emergent side reactions; methanation excluded because CH4 equilibrium share is small at 1400 C and its inclusion trapped the HYSYS Gibbs solver in a non-physical local solution - documented MVP simplification",
+        "No oxidant (O2) feed modelled: problem statement lists slurry and water only, so carbon conversion is steam-limited and unreacted solid carbon is expected",
+        "80000 Nm3/h not used as an absolute basis; results reported per 1000 kg/h slurry"
+      ],
+      "cases": {
+        "1400": {
+          "all_checks_passed": true,
+          "co_yield_percent": 40.86361717739588,
+          "conversion_percent": 40.86361711825948,
+          "heat_duty_kJ_h": 6291769.085472611,
+          "outlet_component_flow_kmol_h": {
+            "CO": 21.093533136279614,
+            "CO2": 6.219193641462874e-16,
+            "Carbon": 30.525815824393575,
+            "H2O": 2.0795911423527596e-15,
+            "Hydrogen": 21.09353313627962
+          },
+          "outlet_mole_fractions": {
+            "CO": 0.2900934817595902,
+            "CO2": 8.553083665656959e-18,
+            "Carbon": 0.41981303648081947,
+            "H2O": 2.8600037330110304e-17,
+            "Hydrogen": 0.2900934817595903
+          }
+        }
+      },
+      "checks": {
+        "1400": {
+          "carbon_conversion_in_range": true,
+          "co_dominant_over_co2": true,
+          "element_balance": true,
+          "feed_components": true,
+          "feed_pressure": true,
+          "feed_temperature": true,
+          "mass_balance": true,
+          "outlet_pressure": true,
+          "outlet_temperature": true,
+          "positive_reaction": true,
+          "reactor_not_ignored": true,
+          "reactor_valid": true,
+          "results_stable": true,
+          "solid_carbon_remaining": true
+        }
+      },
+      "cleanup_status": "success",
+      "converged": true,
+      "report_path": "C:\\Users\\azureuser\\Desktop\\lixiadeagent\\hysys-reactor-agent-v2\\gasification_mvp\\generated_cases\\gasification_20261004_070708_249035.hsc",
+      "runner_stdout": "HYSYS phase: build\nHYSYS phase: verify\nStatus: passed_gasification_checks\nReport: C:\\Users\\azureuser\\Desktop\\lixiadeagent\\hysys-reactor-agent-v2\\gasification_mvp\\diagnostics\\gasification_20261004_070708_249035.json\n",
+      "scenario": "gibbs",
+      "source": "hysys"
+    },
+    "simulation_status": "success",
+    "user_query": "请模拟某水煤浆气化过程：原料为煤和水，采用水煤浆进料，浓度62wt%，气化炉处理量80000Nm3/h，操作压力40bar，进料温度40℃，气化炉出口温度1400℃。考虑副反应，输出产品气体组成与CO收率；不考虑反应器体积，灰分忽略。请选择合适的反应器类型并完成模拟。",
+    "validation_passed": true
+  }
+}

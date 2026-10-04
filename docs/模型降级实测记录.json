@@ -1,0 +1,547 @@
+{
+  "providers": [
+    {
+      "name": "local",
+      "model": "qwen/qwen3.5-9b",
+      "base_url": "http://<LOCAL_MODEL_HOST>:1234/v1"
+    },
+    {
+      "name": "deepseek",
+      "model": "deepseek-v4-flash",
+      "base_url": "https://api.deepseek.com"
+    },
+    {
+      "name": "siliconflow",
+      "model": "Qwen/Qwen3.5-122B-A10B",
+      "base_url": "https://api.siliconflow.cn/v1"
+    }
+  ],
+  "simulation_mode": "mock",
+  "records": [
+    {
+      "case": "equilibrium",
+      "passed": true,
+      "state": {
+        "user_query": "甲烷蒸汽重整，具体可逆反应为CH4+H2O<=>CO+3H2，受平衡控制。温度1073.15 K，绝对压力1000 kPa。候选组分CH4、H2O、CO、H2；物性包Peng-Robinson；进料摩尔分率CH4为0.25、H2O为0.75，总摩尔流量100 kmol/h。平衡方法为热力学平衡常数法，本次只用于Mock流程测试，方法待V15核验。",
+        "reaction_info": {
+          "reaction_name": "甲烷蒸汽重整",
+          "reactants": [
+            "CH4",
+            "H2O"
+          ],
+          "products": [
+            "CO",
+            "H2"
+          ],
+          "temperature": 1073.15,
+          "pressure": 1000.0,
+          "reversible": true,
+          "multiple_reactions": false,
+          "conversion_known": null,
+          "conversion": null,
+          "equilibrium_controlled": true,
+          "products_known": true,
+          "reaction_path_known": true
+        },
+        "selected_reactor": "Equilibrium",
+        "selection_reason": "具体反应路径已知，反应可逆且受平衡控制，选择平衡反应器。",
+        "confidence": 1.0,
+        "simulation_inputs": {
+          "components": [
+            "CH4",
+            "H2O",
+            "CO",
+            "H2"
+          ],
+          "property_package": "Peng-Robinson",
+          "feed_composition": {
+            "CH4": 0.25,
+            "H2O": 0.75
+          },
+          "feed_flow_kmol_h": 100,
+          "reactions": [
+            {
+              "CH4": -1,
+              "H2O": -1,
+              "CO": 1,
+              "H2": 3
+            }
+          ],
+          "equilibrium_method": "热力学平衡常数法"
+        },
+        "missing_parameters": [],
+        "validation_passed": true,
+        "simulation_status": "success",
+        "simulation_results": {
+          "source": "mock",
+          "workflow_verified": true,
+          "converged": null,
+          "reactor": "Equilibrium",
+          "conditions_echo": {
+            "temperature_K": 1073.15,
+            "pressure_kPa_absolute": 1000.0
+          },
+          "feed_echo": {
+            "components": [
+              "CH4",
+              "H2O",
+              "CO",
+              "H2"
+            ],
+            "property_package": "Peng-Robinson",
+            "feed_composition": {
+              "CH4": 0.25,
+              "H2O": 0.75
+            },
+            "feed_flow_kmol_h": 100.0,
+            "reactions": [
+              {
+                "CH4": -1.0,
+                "H2O": -1.0,
+                "CO": 1.0,
+                "H2": 3.0
+              }
+            ],
+            "conversion_basis": null,
+            "equilibrium_method": "热力学平衡常数法"
+          },
+          "calls": [
+            "connect",
+            "create_case",
+            "configure_components",
+            "configure_property_package",
+            "create_feed_stream",
+            "create_equilibrium_reactor",
+            "run",
+            "get_results"
+          ],
+          "engineering_results": null,
+          "note": "仅回显输入，不提供真实组成、能耗或平衡转化率。"
+        },
+        "error": null,
+        "retry_count": 0,
+        "final_answer": "反应器：Equilibrium Reactor（平衡反应器）\n选择依据：具体反应路径已知，反应可逆且受平衡控制，选择平衡反应器。\n【Mock 流程演示】调用链已跑通，未进行真实 HYSYS 计算；没有真实收敛、组成或能耗结果。\nAI 补充解释（待人工核对，以以上规则和原始结果为准）：反应器选择为 Equilibrium：因为给定反应路径已知、反应可逆且受平衡控制，所以选择平衡反应器。运行状态方面，本次结果为 mock 来源，workflow_verified 为 true，调用链包含连接、创建案例、配置组分、配置物性包、创建进料、创建平衡反应器、运行和获取结果，说明工作流与输入回显流程被验证。但 converged 为 null，engineering_results 为 null，note 明确仅回显输入，不提供真实组成、能耗或平衡转化率。因此不能把该 mock 结果视为热力学计算，也不能因 simulation_status 为 success 就认为已收敛或成功；未收敛不能说成功。missing_parameters 为空仅表示未列出缺失参数，error 为 null 仅表示该 mock 返回无错误。\n模型调用记录：解析/本地模型/输出不符合 JSON/数据契约；解析/DeepSeek/成功；解释/本地模型/输出不符合 JSON/数据契约；解释/DeepSeek/成功",
+        "llm_trace": [
+          {
+            "phase": "parse_reaction",
+            "provider": "local",
+            "model": "qwen/qwen3.5-9b",
+            "status": "failed",
+            "reason": "输出不符合 JSON/数据契约"
+          },
+          {
+            "phase": "parse_reaction",
+            "provider": "deepseek",
+            "model": "deepseek-v4-flash",
+            "status": "success"
+          },
+          {
+            "phase": "explain_result",
+            "provider": "local",
+            "model": "qwen/qwen3.5-9b",
+            "status": "failed",
+            "reason": "输出不符合 JSON/数据契约"
+          },
+          {
+            "phase": "explain_result",
+            "provider": "deepseek",
+            "model": "deepseek-v4-flash",
+            "status": "success"
+          }
+        ]
+      }
+    },
+    {
+      "case": "conversion",
+      "passed": true,
+      "state": {
+        "user_query": "甲苯加氢脱烷基反应C7H8+H2生成C6H6+CH4，基于甲苯C7H8的转化率80%。温度873.15 K，绝对压力2000 kPa。候选组分C7H8、H2、C6H6、CH4；物性包Peng-Robinson。进料摩尔分率C7H8为0.25、H2为0.75，总摩尔流量100 kmol/h。",
+        "reaction_info": {
+          "reaction_name": "甲苯加氢脱烷基反应",
+          "reactants": [
+            "C7H8",
+            "H2"
+          ],
+          "products": [
+            "C6H6",
+            "CH4"
+          ],
+          "temperature": 873.15,
+          "pressure": 2000.0,
+          "reversible": null,
+          "multiple_reactions": false,
+          "conversion_known": true,
+          "conversion": 0.8,
+          "equilibrium_controlled": null,
+          "products_known": true,
+          "reaction_path_known": true
+        },
+        "selected_reactor": "Conversion",
+        "selection_reason": "明确给定转化率，按指定转化程度选择转化反应器。",
+        "confidence": 1.0,
+        "simulation_inputs": {
+          "components": [
+            "C7H8",
+            "H2",
+            "C6H6",
+            "CH4"
+          ],
+          "property_package": "Peng-Robinson",
+          "feed_composition": {
+            "C7H8": 0.25,
+            "H2": 0.75
+          },
+          "feed_flow_kmol_h": 100,
+          "reactions": [
+            {
+              "C7H8": -1,
+              "H2": -1,
+              "C6H6": 1,
+              "CH4": 1
+            }
+          ],
+          "conversion_basis": "C7H8"
+        },
+        "missing_parameters": [],
+        "validation_passed": true,
+        "simulation_status": "success",
+        "simulation_results": {
+          "source": "mock",
+          "workflow_verified": true,
+          "converged": null,
+          "reactor": "Conversion",
+          "conditions_echo": {
+            "temperature_K": 873.15,
+            "pressure_kPa_absolute": 2000.0
+          },
+          "feed_echo": {
+            "components": [
+              "C7H8",
+              "H2",
+              "C6H6",
+              "CH4"
+            ],
+            "property_package": "Peng-Robinson",
+            "feed_composition": {
+              "C7H8": 0.25,
+              "H2": 0.75
+            },
+            "feed_flow_kmol_h": 100.0,
+            "reactions": [
+              {
+                "C7H8": -1.0,
+                "H2": -1.0,
+                "C6H6": 1.0,
+                "CH4": 1.0
+              }
+            ],
+            "conversion_basis": "C7H8",
+            "equilibrium_method": null
+          },
+          "calls": [
+            "connect",
+            "create_case",
+            "configure_components",
+            "configure_property_package",
+            "create_feed_stream",
+            "create_conversion_reactor",
+            "run",
+            "get_results"
+          ],
+          "engineering_results": null,
+          "note": "仅回显输入，不提供真实组成、能耗或平衡转化率。"
+        },
+        "error": null,
+        "retry_count": 0,
+        "final_answer": "反应器：Conversion Reactor（转化反应器）\n选择依据：明确给定转化率，按指定转化程度选择转化反应器。\n【Mock 流程演示】调用链已跑通，未进行真实 HYSYS 计算；没有真实收敛、组成或能耗结果。\nAI 补充解释（待人工核对，以以上规则和原始结果为准）：反应器选择：输入明确给定转化率，并以 C7H8 为转化基准，因此按“按指定转化程度选择转化反应器”的规则选择 Conversion（转化反应器）；missing_parameters 为空。运行状态：simulation_status 标记为 success，但 simulation_results.source 为 mock，且仅完成工作流回显与验证（workflow_verified=true），engineering_results 为 null，converged 为 null。因此这不是真实热力学计算，不能根据该 mock 结果声称已收敛或获得真实工程结果；success 仅表示当前 mock 流程执行状态，不代表热力学收敛成功，也不能据此提供真实组成、能耗或平衡转化率。条件与进料仅为回显：温度 873.15 K、绝压 2000 kPa，进料包含 C7H8、H2、C6H6、CH4，C7H8 与 H2 摩尔分数分别为 0.25、0.75，总流量 100 kmol/h，反应为 C7H8 + H2 -> C6H6 + CH4，性质方法为 Peng-Robinson，equilibrium_method 为 null。error 为 null。\n模型调用记录：解析/本地模型/输出不符合 JSON/数据契约；解析/DeepSeek/成功；解释/本地模型/输出不符合 JSON/数据契约；解释/DeepSeek/成功",
+        "llm_trace": [
+          {
+            "phase": "parse_reaction",
+            "provider": "local",
+            "model": "qwen/qwen3.5-9b",
+            "status": "failed",
+            "reason": "输出不符合 JSON/数据契约"
+          },
+          {
+            "phase": "parse_reaction",
+            "provider": "deepseek",
+            "model": "deepseek-v4-flash",
+            "status": "success"
+          },
+          {
+            "phase": "explain_result",
+            "provider": "local",
+            "model": "qwen/qwen3.5-9b",
+            "status": "failed",
+            "reason": "输出不符合 JSON/数据契约"
+          },
+          {
+            "phase": "explain_result",
+            "provider": "deepseek",
+            "model": "deepseek-v4-flash",
+            "status": "success"
+          }
+        ]
+      }
+    },
+    {
+      "case": "gibbs",
+      "passed": true,
+      "state": {
+        "user_query": "CH4、H2O和CO2参与复杂多反应体系，具体反应路径和最终产物分布都不明确。温度1273.15 K，绝对压力1000 kPa。候选组分限定CH4、H2O、CO2、CO、H2；物性包Peng-Robinson。进料摩尔分率CH4为0.2、H2O为0.6、CO2为0.2，总摩尔流量100 kmol/h。",
+        "reaction_info": {
+          "reaction_name": null,
+          "reactants": [
+            "CH4",
+            "H2O",
+            "CO2"
+          ],
+          "products": [],
+          "temperature": 1273.15,
+          "pressure": 1000.0,
+          "reversible": null,
+          "multiple_reactions": true,
+          "conversion_known": null,
+          "conversion": null,
+          "equilibrium_controlled": null,
+          "products_known": false,
+          "reaction_path_known": false
+        },
+        "selected_reactor": "Gibbs",
+        "selection_reason": "复杂多反应体系，路径或产物分布不明确，采用吉布斯自由能最小化；依据不是高温。",
+        "confidence": 0.9,
+        "simulation_inputs": {
+          "components": [
+            "CH4",
+            "H2O",
+            "CO2",
+            "CO",
+            "H2"
+          ],
+          "property_package": "Peng-Robinson",
+          "feed_composition": {
+            "CH4": 0.2,
+            "H2O": 0.6,
+            "CO2": 0.2
+          },
+          "feed_flow_kmol_h": 100
+        },
+        "missing_parameters": [],
+        "validation_passed": true,
+        "simulation_status": "success",
+        "simulation_results": {
+          "source": "mock",
+          "workflow_verified": true,
+          "converged": null,
+          "reactor": "Gibbs",
+          "conditions_echo": {
+            "temperature_K": 1273.15,
+            "pressure_kPa_absolute": 1000.0
+          },
+          "feed_echo": {
+            "components": [
+              "CH4",
+              "H2O",
+              "CO2",
+              "CO",
+              "H2"
+            ],
+            "property_package": "Peng-Robinson",
+            "feed_composition": {
+              "CH4": 0.2,
+              "H2O": 0.6,
+              "CO2": 0.2
+            },
+            "feed_flow_kmol_h": 100.0,
+            "reactions": [],
+            "conversion_basis": null,
+            "equilibrium_method": null
+          },
+          "calls": [
+            "connect",
+            "create_case",
+            "configure_components",
+            "configure_property_package",
+            "create_feed_stream",
+            "create_gibbs_reactor",
+            "run",
+            "get_results"
+          ],
+          "engineering_results": null,
+          "note": "仅回显输入，不提供真实组成、能耗或平衡转化率。"
+        },
+        "error": null,
+        "retry_count": 0,
+        "final_answer": "反应器：Gibbs Reactor（吉布斯反应器）\n选择依据：复杂多反应体系，路径或产物分布不明确，采用吉布斯自由能最小化；依据不是高温。\n【Mock 流程演示】调用链已跑通，未进行真实 HYSYS 计算；没有真实收敛、组成或能耗结果。\nAI 补充解释（待人工核对，以以上规则和原始结果为准）：本次选择 Gibbs 反应器，理由是体系包含复杂多反应、反应路径或产物分布不明确，因此采用吉布斯自由能最小化方法；该依据并非高温条件。输入参数方面，未报告缺失参数。运行状态方面，返回的 simulation_status 为 success，且 workflow_verified 为 true，这说明的是调用工作流（连接、建例、配置组分与物性包、建进料流、建 Gibbs 反应器、运行、取结果）已执行通；但它来自 mock，source 为 mock，engineering_results 为 null，note 也明确说明仅回显输入，不提供真实组成、能耗或平衡转化率。更关键的是，结果中的 converged 为 null，表示没有可确认的收敛结论，因此不能把该 mock 结果表述为热力学计算成功或已收敛。换言之，只能说明工作流层面的 mock 回显成功，不能说明 Gibbs 最小化计算成功；规则结论不变，选择 Gibbs 的依据不变，且不补充任何未给出的数值或平衡结果。\n模型调用记录：解析/本地模型/输出不符合 JSON/数据契约；解析/DeepSeek/成功；解释/本地模型/输出不符合 JSON/数据契约；解释/DeepSeek/成功",
+        "llm_trace": [
+          {
+            "phase": "parse_reaction",
+            "provider": "local",
+            "model": "qwen/qwen3.5-9b",
+            "status": "failed",
+            "reason": "输出不符合 JSON/数据契约"
+          },
+          {
+            "phase": "parse_reaction",
+            "provider": "deepseek",
+            "model": "deepseek-v4-flash",
+            "status": "success"
+          },
+          {
+            "phase": "explain_result",
+            "provider": "local",
+            "model": "qwen/qwen3.5-9b",
+            "status": "failed",
+            "reason": "输出不符合 JSON/数据契约"
+          },
+          {
+            "phase": "explain_result",
+            "provider": "deepseek",
+            "model": "deepseek-v4-flash",
+            "status": "success"
+          }
+        ]
+      }
+    },
+    {
+      "case": "missing",
+      "passed": true,
+      "state": {
+        "user_query": "甲苯转化率80%，温度873.15 K。其他条件尚未给定。",
+        "reaction_info": {
+          "reaction_name": null,
+          "reactants": [
+            "toluene"
+          ],
+          "products": [],
+          "temperature": 873.15,
+          "pressure": null,
+          "reversible": null,
+          "multiple_reactions": null,
+          "conversion_known": true,
+          "conversion": 0.8,
+          "equilibrium_controlled": null,
+          "products_known": null,
+          "reaction_path_known": null
+        },
+        "selected_reactor": "Conversion",
+        "selection_reason": "明确给定转化率，按指定转化程度选择转化反应器。",
+        "confidence": 1.0,
+        "simulation_inputs": {
+          "components": [
+            "toluene"
+          ],
+          "conversion_basis": "toluene"
+        },
+        "missing_parameters": [
+          "pressure：绝对压力（kPa）",
+          "property_package：缺失或不符合参数约束",
+          "feed_composition：缺失或不符合参数约束",
+          "feed_flow_kmol_h：缺失或不符合参数约束"
+        ],
+        "validation_passed": false,
+        "simulation_status": "needs_input",
+        "simulation_results": {},
+        "error": null,
+        "retry_count": 0,
+        "final_answer": "反应器：Conversion Reactor（转化反应器）\n选择依据：明确给定转化率，按指定转化程度选择转化反应器。\n请补充/修正以下参数后重新提交：\n- pressure：绝对压力（kPa）\n- property_package：缺失或不符合参数约束\n- feed_composition：缺失或不符合参数约束\n- feed_flow_kmol_h：缺失或不符合参数约束\nAI 补充解释（待人工核对，以以上规则和原始结果为准）：当前选择的反应器类型为 Conversion（转化反应器），依据是已明确给定转化率，因此按指定转化程度选择转化反应器。运行状态为 needs_input，表示缺少必要输入，尚未进入可计算或收敛状态。缺失参数包括：pressure：绝对压力（kPa）；property_package：缺失或不符合参数约束；feed_composition：缺失或不符合参数约束；feed_flow_kmol_h：缺失或不符合参数约束。由于这些参数缺失或不合规，simulation_results 为空，error 为 null。该 Mock 不是热力学计算，不能因为未报错就认定成功；在未收敛的情况下不能说明模拟成功。\n模型调用记录：解析/本地模型/输出不符合 JSON/数据契约；解析/DeepSeek/成功；解释/本地模型/输出不符合 JSON/数据契约；解释/DeepSeek/成功",
+        "llm_trace": [
+          {
+            "phase": "parse_reaction",
+            "provider": "local",
+            "model": "qwen/qwen3.5-9b",
+            "status": "failed",
+            "reason": "输出不符合 JSON/数据契约"
+          },
+          {
+            "phase": "parse_reaction",
+            "provider": "deepseek",
+            "model": "deepseek-v4-flash",
+            "status": "success"
+          },
+          {
+            "phase": "explain_result",
+            "provider": "local",
+            "model": "qwen/qwen3.5-9b",
+            "status": "failed",
+            "reason": "输出不符合 JSON/数据契约"
+          },
+          {
+            "phase": "explain_result",
+            "provider": "deepseek",
+            "model": "deepseek-v4-flash",
+            "status": "success"
+          }
+        ]
+      }
+    },
+    {
+      "case": "temperature_only",
+      "passed": true,
+      "state": {
+        "user_query": "反应温度1500 K，其他条件和反应机理都没有给出。",
+        "reaction_info": {
+          "reaction_name": null,
+          "reactants": [],
+          "products": [],
+          "temperature": 1500.0,
+          "pressure": null,
+          "reversible": null,
+          "multiple_reactions": null,
+          "conversion_known": null,
+          "conversion": null,
+          "equilibrium_controlled": null,
+          "products_known": null,
+          "reaction_path_known": false
+        },
+        "selected_reactor": null,
+        "selection_reason": "证据不足：请明确转化率，或具体可逆平衡反应，或复杂体系的未知路径/产物分布。",
+        "confidence": 0.0,
+        "simulation_inputs": {},
+        "missing_parameters": [
+          "反应器选择依据：明确转化率，或已知可逆平衡反应，或复杂体系未知路径/产物分布",
+          "pressure：绝对压力（kPa）",
+          "reactants：反应物名称",
+          "components：缺失或不符合参数约束",
+          "property_package：缺失或不符合参数约束",
+          "feed_composition：缺失或不符合参数约束",
+          "feed_flow_kmol_h：缺失或不符合参数约束"
+        ],
+        "validation_passed": false,
+        "simulation_status": "needs_input",
+        "simulation_results": {},
+        "error": null,
+        "retry_count": 0,
+        "final_answer": "反应器：尚不能确定\n选择依据：证据不足：请明确转化率，或具体可逆平衡反应，或复杂体系的未知路径/产物分布。\n请补充/修正以下参数后重新提交：\n- 反应器选择依据：明确转化率，或已知可逆平衡反应，或复杂体系未知路径/产物分布\n- pressure：绝对压力（kPa）\n- reactants：反应物名称\n- components：缺失或不符合参数约束\n- property_package：缺失或不符合参数约束\n- feed_composition：缺失或不符合参数约束\n- feed_flow_kmol_h：缺失或不符合参数约束\nAI 补充解释（待人工核对，以以上规则和原始结果为准）：当前未选定反应器（selected_reactor 为 null）。选择依据不足：需明确转化率，或提供具体可逆平衡反应，或说明复杂体系的未知路径/产物分布。同时缺少以下必要参数：反应器选择依据、pressure（绝对压力 kPa）、reactants（反应物名称）、components、property_package、feed_composition、feed_flow_kmol_h，其中 components、property_package、feed_composition、feed_flow_kmol_h 为缺失或不符合参数约束。运行状态为 needs_input，表示仍在等待输入，尚未执行有效模拟；simulation_results 为空，error 为 null。该结果仅为 Mock 状态，不是热力学计算，也没有收敛，因此不能判定为成功。\n模型调用记录：解析/本地模型/输出不符合 JSON/数据契约；解析/DeepSeek/成功；解释/本地模型/输出不符合 JSON/数据契约；解释/DeepSeek/成功",
+        "llm_trace": [
+          {
+            "phase": "parse_reaction",
+            "provider": "local",
+            "model": "qwen/qwen3.5-9b",
+            "status": "failed",
+            "reason": "输出不符合 JSON/数据契约"
+          },
+          {
+            "phase": "parse_reaction",
+            "provider": "deepseek",
+            "model": "deepseek-v4-flash",
+            "status": "success"
+          },
+          {
+            "phase": "explain_result",
+            "provider": "local",
+            "model": "qwen/qwen3.5-9b",
+            "status": "failed",
+            "reason": "输出不符合 JSON/数据契约"
+          },
+          {
+            "phase": "explain_result",
+            "provider": "deepseek",
+            "model": "deepseek-v4-flash",
+            "status": "success"
+          }
+        ]
+      }
+    }
+  ]
+}

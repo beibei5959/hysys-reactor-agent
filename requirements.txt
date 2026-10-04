@@ -1,0 +1,5 @@
+pydantic==2.13.5
+langgraph==1.2.12
+httpx==0.28.1
+python-dotenv==1.2.4
+# 真实考试机单独安装 pywin32；本地 Mock 不需要 COM。

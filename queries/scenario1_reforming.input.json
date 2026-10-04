@@ -1,0 +1,57 @@
+{
+  "user_query": "我需要模拟甲烷蒸汽重整。进料是甲烷和水蒸气（摩尔比 1:2.7）有两个反应，主反应甲烷和水反应生成一氧化碳和氢气；副反应一样一氧化碳和水蒸气反应生成二氧化碳和氢气，请分析以下两种情况下反应炉的组分分布：1、重整炉出口气温度为710℃，压力13.5 bar，进料温度520℃；2、重整炉出口气温度为600℃，压力13.5 bar，进料温度520℃。",
+  "reaction_info": {
+    "reaction_name": "甲烷蒸汽重整",
+    "reactants": [
+      "Methane",
+      "H2O"
+    ],
+    "products": [
+      "CO",
+      "CO2",
+      "Hydrogen"
+    ],
+    "temperature": 983.15,
+    "pressure": 1350.0,
+    "reversible": true,
+    "multiple_reactions": true,
+    "conversion_known": false,
+    "conversion": null,
+    "equilibrium_controlled": true,
+    "products_known": true,
+    "reaction_path_known": true
+  },
+  "simulation_inputs": {
+    "components": [
+      "Methane",
+      "H2O",
+      "CO",
+      "CO2",
+      "Hydrogen"
+    ],
+    "property_package": "Peng-Robinson",
+    "feed_composition": {
+      "Methane": 0.27027027027027023,
+      "H2O": 0.7297297297297297
+    },
+    "feed_flow_kmol_h": 100.0,
+    "reactions": [
+      {
+        "Methane": -1.0,
+        "H2O": -1.0,
+        "CO": 1.0,
+        "Hydrogen": 3.0
+      },
+      {
+        "CO": -1.0,
+        "H2O": -1.0,
+        "CO2": 1.0,
+        "Hydrogen": 1.0
+      }
+    ],
+    "conversion_basis": null,
+    "equilibrium_method": "HYSYS 内置平衡常数库（ln K 温度多项式，LnKSource=3 只读导出核对），由 reforming_mvp/run_reforming.py 在远程 HYSYS V15 连续三轮通过全部校验"
+  },
+  "preset": "equilibrium",
+  "preset_note": "Pinned to the verified reforming runner (ER-710/ER-600, 13.5 bar, feed 520 C)."
+}

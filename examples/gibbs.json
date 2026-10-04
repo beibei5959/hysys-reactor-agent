@@ -1,0 +1,13 @@
+{
+  "description": "开发示例，非原始考题；候选组分及物性范围待工程确认",
+  "user_query": "甲烷、水和二氧化碳的复杂多反应体系，具体反应路径和最终产物分布不明确。温度1273.15 K，绝压1000 kPa。候选组分限制为CH4、H2O、CO2、CO、H2。",
+  "reaction_info": {
+    "reaction_name": "复杂重整体系", "reactants": ["CH4", "H2O", "CO2"], "products": [],
+    "temperature": 1273.15, "pressure": 1000.0, "multiple_reactions": true,
+    "conversion_known": false, "products_known": false, "reaction_path_known": false
+  },
+  "simulation_inputs": {
+    "components": ["CH4", "H2O", "CO2", "CO", "H2"], "property_package": "Peng-Robinson",
+    "feed_composition": {"CH4": 0.2, "H2O": 0.6, "CO2": 0.2}, "feed_flow_kmol_h": 100.0
+  }
+}
