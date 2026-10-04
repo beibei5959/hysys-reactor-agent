@@ -2,7 +2,7 @@
 
 ## 使用说明
 
-在远程考试机上运行（Python 3.12.4 + pywin32 + Aspen HYSYS V15 已打开）。
+在远程工作站上运行（Python 3.12.4 + pywin32 + Aspen HYSYS V15 已打开）。
 
 **运行前**：确保 HYSYS 已打开，且至少有一个活动案例（可以是空白案例）。
 

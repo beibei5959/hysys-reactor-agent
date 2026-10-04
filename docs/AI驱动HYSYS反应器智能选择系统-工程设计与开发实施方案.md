@@ -6,7 +6,7 @@
 
 目标：自然语言描述反应条件，提取结构化信息，按可解释规则选择反应器，检查参数，调用模拟器，解释结果。LLM（大语言模型）负责语言理解与中文解释；工程规则负责确定性约束；HYSYS 负责真实工程计算。Mock 只验证软件流程，不提供热力学计算结论。
 
-当前参考对话能确认三类场景及甲烷蒸汽重整、给定转化率、复杂体系等背景，但没有完整考试题原文或全部数值。仓库的三场景数据必须标明为开发示例，不能冒充原始考题；考试参数到位后替换示例而不改选择逻辑。
+当前参考对话能确认三类场景及甲烷蒸汽重整、给定转化率、复杂体系等背景，但没有完整任务书原文或全部数值。仓库的三场景数据必须标明为开发示例，不能冒充原始任务规格；完整参数到位后替换示例而不改选择逻辑。
 
 ## 2. 三场景与选择规则
 
@@ -77,11 +77,11 @@ simulation_inputs 同样用 Pydantic 校验：components（候选组分），pro
 
 HysysController 接口：connect、create_case、configure_components、configure_property_package、create_feed_stream、create_conversion_reactor、create_equilibrium_reactor、create_gibbs_reactor、run、get_results、close。MockHysysController 实现同一流程，返回明确的占位结果，不编造组成、收率、能耗或平衡转化率。真实实现放在 com_client.py，未验证接口明确抛出“尚未验证”，禁止猜测 COM 属性/方法。
 
-**用户在远程 Windows 考试机已实际验证**：Python 3.12.4；pywin32 可用；win32com.client.GetActiveObject('HYSYS.Application')；app.ActiveDocument；case.Flowsheet。本地未复验，证据来源是用户确认。
+**用户在远程 Windows 工作站已实际验证**：Python 3.12.4；pywin32 可用；win32com.client.GetActiveObject('HYSYS.Application')；app.ActiveDocument；case.Flowsheet。本地未复验，证据来源是用户确认。
 
 **尚未验证**：创建案例、组分与物性配置、物流集合/单元集合、三个反应器的创建及规格、反应集绑定、求解器控制、收敛标志及结果字段。不能把 Streams/Operations/Reactor 的具体 Automation 调用写成已验证。
 
-远程第一步只读附着已打开的案例并检查上述三层对象，绝不关闭用户 HYSYS 或修改活动案例。随后用官方 HYSYS V15 Help/考试机最小验证逐项记录对象路径、版本、单位、返回值及异常，才编写对应实现。真实建模只针对用户指定副本，资源所有权明确，close 默认仅释放 Python 引用。
+远程第一步只读附着已打开的案例并检查上述三层对象，绝不关闭用户 HYSYS 或修改活动案例。随后用官方 HYSYS V15 Help/工作站最小验证逐项记录对象路径、版本、单位、返回值及异常，才编写对应实现。真实建模只针对用户指定副本，资源所有权明确，close 默认仅释放 Python 引用。
 
 ## 7. 精简目录
 
@@ -107,7 +107,7 @@ tests/ / examples/ / docs/
 |5 Mock/本地端到端|工具层、Mock、CLI、可选 LLM 接口|三场景完整通过并显式标 Mock；失败不伪装成功|
 |6 远程 COM|只读探测、V15 Help/API 证据、真实实现|先验证 API 再写实现；真实收敛和单位可核验|
 |7 真实三场景|HYSYS 案例和结果|人工界面与程序结果对照，质量/元素守恒及物理合理性核验|
-|8 交付|README、开发记录、测试结果、1～2 页报告、Live Demo|分别列出本地、在线 LLM、真实 HYSYS 的实际已验/待验状态|
+|8 产出|README、开发记录、测试结果、1～2 页报告、Live Demo|分别列出本地、在线 LLM、真实 HYSYS 的实际已验/待验状态|
 
 每阶段测试通过后再继续下一阶段；没有远程连接/真实 HYSYS 时阶段 6～7 保持待验证，不填假结果。可以先准备阶段 8 的本地版材料，明确它不等于真实工程验收。
 
@@ -127,8 +127,8 @@ LLM 不允许直接决定反应器或调用 COM。在线返回必须满足 JSON/
 
 本地接口实测不接受 json_object；json_schema 模式正式 content 为空。因此本地使用 text 模式，提示词包含 JSON Schema（数据契约），只解析正式 content 并统一做本地数据契约校验，失败仍降级；不把思考字段当正式结果。云服务使用 JSON 对象模式。模型服务兼容性不得以协议相似代替实测。DeepSeek 模型列表未列出用户指定模型，但实际 deepseek-v4-flash 调用成功，以实际调用证据为准，不擅自替换模型名。
 
-## 11. 交付与待提供信息
+## 11. 产出与待提供信息
 
 0.2版本的运行入口、持久化与降级细节以 README 和 `0.2版本验收记录.md` 为准。原五节点及核心状态字段保留；新增 task_id/attempt 等任务元数据，以及 error_code、explanation_status、cleanup_status 用于恢复和部分成功表达。节点快照在应用层事务保存，没有把 LangGraph 内存状态误称为持久化。
 
-本地交付应包含能运行的三场景、测试、工程设计、开发记录、验证报告与演示步骤。远程继续需要考试题原文及参数、可访问的考试机/用户执行只读检查结果、官方 V15 Automation 相关 Help、可操作的案例副本。在线 AI 联调需要用户自行配置模型服务地址、模型名、密钥，不把密钥写进日志或版本库。
+本地发布应包含能运行的三场景、测试、工程设计、开发记录、验证报告与演示步骤。远程继续需要任务书原文及参数、可访问的工作站/用户执行只读检查结果、官方 V15 Automation 相关 Help、可操作的案例副本。在线 AI 联调需要用户自行配置模型服务地址、模型名、密钥，不把密钥写进日志或版本库。

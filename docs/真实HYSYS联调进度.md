@@ -1,6 +1,6 @@
 # 真实HYSYS联调进度（2026-10-04）
 
-证据来源：用户在远程考试机执行后提交的报告；本机未执行HYSYS COM。
+证据来源：用户在远程工作站执行后提交的报告；本机未执行HYSYS COM。
 
 - TaskService/LangGraph使用结构化输入及受限参考案例执行器完成，任务0b91e44e1e464ccca2231f5bca5d0d96。
 - 当前案例组分、物性包Peng-Robinson、CRV-100及物流连接核对通过。
