@@ -198,6 +198,17 @@ def test_400_retries_with_minimal_body(monkeypatch):
     assert llm.trace[-1]["status"] == "success"
 
 
+def test_endpoint_env_values_are_stripped(monkeypatch):
+    # 云平台变量框粘贴曾带入尾部换行，导致 httpx InvalidURL（不可打印字符）
+    monkeypatch.setenv("DEEPSEEK_BASE_URL", "https://cloud.invalid/v1\n")
+    monkeypatch.setenv("DEEPSEEK_MODEL", " m ")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "\tk\n")
+    endpoint = [e for e in Settings.from_env().llm_providers if e.name == "deepseek"][0]
+    assert endpoint.base_url == "https://cloud.invalid/v1"
+    assert endpoint.model == "m"
+    assert endpoint.api_key == "k"
+
+
 def test_400_twice_records_failure_once(monkeypatch):
     calls = []
 

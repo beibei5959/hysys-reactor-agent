@@ -156,7 +156,7 @@ class JsonLLM:
                             },
                         ],
                     }
-                    url = endpoint.base_url.rstrip("/") + "/chat/completions"
+                    url = endpoint.base_url.strip().rstrip("/") + "/chat/completions"
                     headers = {"Authorization": f"Bearer {endpoint.api_key}"}
                     http_timeout = httpx.Timeout(timeout, connect=min(5, timeout))
                     response = await asyncio.wait_for(
@@ -207,6 +207,8 @@ class JsonLLM:
                         cooldown = cfg.circuit_cooldown_seconds
                 except (httpx.TimeoutException, TimeoutError):
                     reason = "请求超时"
+                except httpx.InvalidURL:
+                    reason = "URL 无效：检查地址变量是否混入空白/换行"
                 except httpx.RequestError:
                     reason = "连接/网络失败"
                 except (ValueError, KeyError, TypeError, IndexError):

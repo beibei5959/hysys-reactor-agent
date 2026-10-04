@@ -58,9 +58,10 @@ class Settings:
         endpoints = tuple(
             ModelEndpoint(
                 name,
-                os.getenv(prefix + "_BASE_URL", ""),
-                os.getenv(prefix + "_MODEL", ""),
-                os.getenv(prefix + "_API_KEY", ""),
+                # strip 防粘贴带入的首尾空白/换行（云平台变量框粘贴曾带入 \n 导致 InvalidURL）
+                os.getenv(prefix + "_BASE_URL", "").strip(),
+                os.getenv(prefix + "_MODEL", "").strip(),
+                os.getenv(prefix + "_API_KEY", "").strip(),
             )
             for name, prefix in [
                 ("local", "LOCAL"),
