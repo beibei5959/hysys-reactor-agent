@@ -196,7 +196,9 @@ class JsonLLM:
                     return parsed, events
                 except httpx.HTTPStatusError as exc:
                     status = exc.response.status_code
-                    reason = f"HTTP {status}"
+                    # 带上平台返回的原始报错摘要，便于在任务页直接定位配置问题
+                    detail = (exc.response.text or "").strip().replace("\n", " ")
+                    reason = f"HTTP {status}" + (f"：{detail[:200]}" if detail else "")
                     if status == 429:
                         cooldown = max(
                             1, self._retry_after(exc.response.headers.get("Retry-After"))

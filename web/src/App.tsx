@@ -767,6 +767,7 @@ function Workspace({ user, onLogout }: { user: User; onLogout: () => void }) {
                         <span>{trace.model}</span>
                         <span>{trace.status}</span>
                         <small>{trace.duration_ms ?? "—"} ms</small>
+                        {trace.reason ? <small>{trace.reason}</small> : null}
                       </div>
                     ))}
                   </div>

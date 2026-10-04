@@ -43,8 +43,11 @@ def make_parse_node(llm):
         except Exception as exc:
             failure("parse_failed", exc)
             return {
-                "error": "反应解析失败：请检查模型配置、服务响应及输入格式；没有执行模拟。",
+                # 附带异常类型与信息，便于在任务页直接定位环境/配置问题
+                "error": "反应解析失败：请检查模型配置、服务响应及输入格式；没有执行模拟。"
+                f"（{type(exc).__name__}: {exc}）",
                 "simulation_status": "failed",
+                "llm_trace": list(getattr(llm, "trace", [])),
             }
 
     return parse_reaction
