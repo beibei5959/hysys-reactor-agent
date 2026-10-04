@@ -428,4 +428,8 @@ def create_app(data_dir=None, *, llm_factory=None):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(create_app(), host="127.0.0.1", port=8765, access_log=False)
+    # 云平台（如 Railway）注入 PORT 并要求监听 0.0.0.0；本地默认行为不变。
+    uvicorn.run(create_app(),
+                host=os.environ.get("HYSYS_WEB_HOST", "127.0.0.1"),
+                port=int(os.environ.get("PORT", "8765")),
+                access_log=False)
